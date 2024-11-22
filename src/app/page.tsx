@@ -11,6 +11,7 @@ import Footer from './components/Footer'
 import BookNowButton from './components/BookNowButton'
 
 export default function PetServicesLanding() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {

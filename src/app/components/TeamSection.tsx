@@ -40,15 +40,15 @@ export default function TeamSection() {
             <div className="flex space-x-4">
               <Link href="#" className="text-purple-600 hover:text-purple-500 dark:text-purple-300 dark:hover:text-purple-200 transition-colors">
                 <Facebook className="h-6 w-6" />
-                <span className="sr-only">Sarah's Facebook</span>
+                <span className="sr-only">Sarah&apos;s Facebook</span>
               </Link>
               <Link href="#" className="text-purple-600 hover:text-purple-500 dark:text-purple-300 dark:hover:text-purple-200 transition-colors">
                 <Instagram className="h-6 w-6" />
-                <span className="sr-only">Sarah's Instagram</span>
+                <span className="sr-only">Sarah&apos;s Instagram</span>
               </Link>
               <Link href="#" className="text-purple-600 hover:text-purple-500 dark:text-purple-300 dark:hover:text-purple-200 transition-colors">
                 <Twitter className="h-6 w-6" />
-                <span className="sr-only">Sarah's Twitter</span>
+                <span className="sr-only">Sarah&apos;s Twitter</span>
               </Link>
             </div>
           </motion.div>
@@ -76,15 +76,15 @@ export default function TeamSection() {
             <div className="flex space-x-4">
               <Link href="#" className="text-purple-600 hover:text-purple-500 dark:text-purple-300 dark:hover:text-purple-200 transition-colors">
                 <Facebook className="h-6 w-6" />
-                <span className="sr-only">Alex's Facebook</span>
+                <span className="sr-only">Alex&apos;s Facebook</span>
               </Link>
               <Link href="#" className="text-purple-600 hover:text-purple-500 dark:text-purple-300 dark:hover:text-purple-200 transition-colors">
                 <Instagram className="h-6 w-6" />
-                <span className="sr-only">Alex's Instagram</span>
+                <span className="sr-only">Alex&apos;s Instagram</span>
               </Link>
               <Link href="#" className="text-purple-600 hover:text-purple-500 dark:text-purple-300 dark:hover:text-purple-200 transition-colors">
                 <Twitter className="h-6 w-6" />
-                <span className="sr-only">Alex's Twitter</span>
+                <span className="sr-only">Alex&apos;s Twitter</span>
               </Link>
             </div>
           </motion.div>
