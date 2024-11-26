@@ -147,9 +147,21 @@ export default function ServicesSection() {
   )
 
   const getRelevantOption = (service: typeof services[0]) => {
-    if (!service.options) return null
-    return service.options.find(option => option.maxAnimals >= animalCount)
-  }
+    if (!service.options) return null;
+    return service.options.find(option => {
+      if ('maxAnimals' in option) {
+        return option.maxAnimals >= animalCount;
+      } else if ('animalType' in option) {
+        if (Array.isArray(option.animalType)) {
+          return option.animalType.includes(animalType);
+        } else {
+          return option.animalType === animalType;
+        }
+      } else {
+        return false;
+      }
+    });
+  };
 
   const renderServiceItem = (service: typeof services[0]) => {
     const IconComponent = service.icon
@@ -369,3 +381,4 @@ export default function ServicesSection() {
     </section>
   )
 }
+
