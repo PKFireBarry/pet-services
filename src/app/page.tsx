@@ -9,6 +9,7 @@ import NewsletterSection from './components/NewsletterSection'
 import TermsOfServiceSection from './components/TermsOfServiceSection'
 import Footer from './components/Footer'
 import BookNowButton from './components/BookNowButton'
+import About from './components/About'
 
 export default function PetServicesLanding() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -27,6 +28,7 @@ export default function PetServicesLanding() {
       <main className="flex-1">
         <div className="w-full max-w-[95%] mx-auto px-4 sm:px-6 lg:px-8">
           <HeroSection />
+          <About/>
           <TeamSection />
           <ServicesSection/>
 
