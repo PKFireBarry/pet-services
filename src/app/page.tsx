@@ -4,13 +4,11 @@ import React, { useState, useEffect } from 'react'
 import Header from './components/Header'
 import HeroSection from './components/HeroSection'
 import ServicesSection from './components/ServicesSection'
-import TeamSection from './components/TeamSection'
-import NewsletterSection from './components/NewsletterSection'
 import TermsOfServiceSection from './components/TermsOfServiceSection'
 import Footer from './components/Footer'
 import BookNowButton from './components/BookNowButton'
 import About from './components/About'
-import ReviewsSection from './components/ReviewsSection'
+
 
 export default function PetServicesLanding() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -32,7 +30,6 @@ export default function PetServicesLanding() {
           <About/>
           <ServicesSection/>
           <TermsOfServiceSection />
-          <NewsletterSection />
         </div>
       </main>
       <Footer />
