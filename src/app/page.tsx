@@ -8,10 +8,11 @@ import TermsOfServiceSection from './components/TermsOfServiceSection'
 import Footer from './components/Footer'
 import BookNowButton from './components/BookNowButton'
 import About from './components/About'
-
+import WhyChooseUs from './components/WhyChooseUs'
+import TeamSection from './components/TeamSection'
+import Contact from './components/Contact'
 
 export default function PetServicesLanding() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {
@@ -21,20 +22,21 @@ export default function PetServicesLanding() {
   }, [])
 
   return (
-    <div className=''>
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-purple-50 to-pink-50 dark:from-gray-900 dark:to-purple-900 items-center">
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-pink-50 dark:from-gray-900 dark:to-purple-900">
       <Header />
       <main className="flex-1">
-        <div className="w-full max-w-[95%] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-16 py-12">
           <HeroSection />
-          <About/>
-          <ServicesSection/>
+          <About />
+          <WhyChooseUs/>
+          <ServicesSection />
+          <TeamSection/>
           <TermsOfServiceSection />
+          <Contact/>
         </div>
       </main>
       <Footer />
-      <BookNowButton />
-    </div>
+      <BookNowButton scrollY={scrollY} />
     </div>
   )
 }
