@@ -129,7 +129,7 @@ export default function ContactComponent() {
             <div>
               <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Get in Touch</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                We're here to help and answer any question you might have. We look forward to hearing from you!
+                We&apos;re here to help and answer any question you might have. We look forward to hearing from you!
               </p>
             </div>
             <div className="space-y-4">
