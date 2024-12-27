@@ -1,4 +1,22 @@
+import { ReactNode } from 'react';
 import { Check, Clock, Calendar, Heart, Users } from 'lucide-react';
+
+interface StatCardProps {
+  number: string; // Assuming numbers are passed as strings like "11+", etc.
+  label: string;
+}
+
+interface FeatureCardProps {
+  icon: ReactNode;
+  title: string;
+  description: string;
+}
+
+interface SchedulingFeatureProps {
+  icon: ReactNode;
+  title: string;
+  description: string;
+}
 
 export default function WhyChooseUs() {
   return (
@@ -52,12 +70,10 @@ export default function WhyChooseUs() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
-
-
-function StatCard({ number, label }) {
+function StatCard({ number, label }: StatCardProps) {
   return (
     <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-60">
       <p className="text-4xl font-bold text-gray-800 dark:text-white">{number}</p>
@@ -66,7 +82,7 @@ function StatCard({ number, label }) {
   );
 }
 
-function FeatureCard({ icon, title, description }) {
+function FeatureCard({ icon, title, description }: FeatureCardProps) {
   return (
     <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-80">
       <div className="flex items-center mb-4">
@@ -78,7 +94,7 @@ function FeatureCard({ icon, title, description }) {
   );
 }
 
-function SchedulingFeature({ icon, title, description }) {
+function SchedulingFeature({ icon, title, description }: SchedulingFeatureProps) {
   return (
     <div className="flex flex-col items-center text-center w-60">
       <div className="bg-purple-100 dark:bg-purple-800 p-3 rounded-full mb-4">
