@@ -24,7 +24,8 @@ export default function TeamSection() {
           >
             <div className="w-48 h-48 mb-8 relative">
               <Image
-                src="/placeholder.svg"
+                src="/"
+
                 alt="founder"
                 layout="fill"
                 objectFit="cover"

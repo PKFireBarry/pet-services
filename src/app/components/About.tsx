@@ -25,7 +25,7 @@ function About() {
             transition={{ duration: 0.8 }}
             className="flex justify-center md:justify-start"
           >
-            <Image src="your-image-url.jpg" alt="Caitlyn's Pet Services" className="rounded-lg shadow-lg" />
+            <Image src="/" width={50} height={50} alt="Caitlyn's Pet Services" className="rounded-lg shadow-lg" />
           </motion.div>
 
           <motion.div

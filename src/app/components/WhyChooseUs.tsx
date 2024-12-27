@@ -55,6 +55,8 @@ export default function WhyChooseUs() {
   )
 }
 
+
+
 function StatCard({ number, label }) {
   return (
     <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-60">
