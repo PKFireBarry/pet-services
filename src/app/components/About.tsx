@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import Image from 'next/image';
 import React from 'react'
 
 function About() {
@@ -24,7 +25,7 @@ function About() {
             transition={{ duration: 0.8 }}
             className="flex justify-center md:justify-start"
           >
-            <img src="your-image-url.jpg" alt="Caitlyn's Pet Services" className="rounded-lg shadow-lg" />
+            <Image src="your-image-url.jpg" alt="Caitlyn's Pet Services" className="rounded-lg shadow-lg" />
           </motion.div>
 
           <motion.div
