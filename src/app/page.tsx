@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+
 import Header from './components/Header'
 import HeroSection from './components/HeroSection'
 import ServicesSection from './components/ServicesSection'
@@ -13,13 +13,6 @@ import TeamSection from './components/TeamSection'
 import Contact from './components/Contact'
 
 export default function PetServicesLanding() {
-  const [scrollY, setScrollY] = useState(0)
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY)
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-pink-50 dark:from-gray-900 dark:to-purple-900">
