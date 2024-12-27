@@ -148,6 +148,7 @@ const StatCard = forwardRef<HTMLDivElement, StatCardProps>(({ number, label }, r
     </motion.div>
   );
 });
+StatCard.displayName = 'StatCard';
 
 const MotionStatCard = motion(StatCard);
 
@@ -162,6 +163,7 @@ const FeatureCard = forwardRef<HTMLDivElement, FeatureCardProps>(({ icon, title,
     </motion.div>
   );
 });
+FeatureCard.displayName = 'FeatureCard';
 
 const MotionFeatureCard = motion(FeatureCard);
 
@@ -176,3 +178,4 @@ const SchedulingFeature = forwardRef<HTMLDivElement, SchedulingFeatureProps>(({ 
     </motion.div>
   );
 });
+SchedulingFeature.displayName = 'SchedulingFeature';
