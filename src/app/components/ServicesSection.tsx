@@ -170,52 +170,55 @@ export default function ServicesSection() {
     if (service.options && !relevantOption) return null
 
     return (
-      <div key={service.id} className="mb-6 p-4 bg-white rounded-lg shadow-md">
-        <div className="flex items-center mb-2">
-          {IconComponent && <IconComponent className="w-6 h-6 mr-2 text-purple-600" />}
-          <h3 className="text-lg font-semibold">{service.name}</h3>
+      <div key={service.id} className="mb-6 p-6 bg-white bg-opacity-80 backdrop-filter backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-200 to-pink-200 opacity-10 z-0"></div>
+        <div className="relative z-10">
+          <div className="flex items-center mb-2">
+            {IconComponent && <IconComponent className="w-8 h-8 mr-3 text-purple-600 animate-pulse" />}
+            <h3 className="text-lg font-semibold">{service.name}</h3>
+          </div>
+          <p className="text-sm text-gray-600 mb-2">{service.description}</p>
+          {relevantOption ? (
+            <div className="flex items-center justify-between mb-2">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={selectedServices.includes(relevantOption.id)}
+                  onChange={() => toggleService(relevantOption.id)}
+                  className="mr-3 w-5 h-5 text-purple-600 rounded focus:ring-purple-500 transition-all duration-300"
+                />
+                {relevantOption.label}
+              </label>
+              <span className="font-semibold">${relevantOption.price}</span>
+            </div>
+          ) : (
+            <div className="flex items-center justify-between">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={selectedServices.includes(service.id)}
+                  onChange={() => toggleService(service.id)}
+                  className="mr-3 w-5 h-5 text-purple-600 rounded focus:ring-purple-500 transition-all duration-300"
+                />
+                {service.name}
+              </label>
+              <span className="font-semibold">${service.price} per animal</span>
+            </div>
+          )}
+          {service.category === "Additional Services" && selectedServices.includes(service.id) && (
+            <div className="mt-2">
+              <label className="block text-sm font-medium text-gray-700">Number of animals for this service:</label>
+              <input
+                type="number"
+                min="1"
+                max={animalCount}
+                value={additionalServiceCounts[service.id] || animalCount}
+                onChange={(e) => handleAdditionalServiceCount(service.id, Math.min(Math.max(1, parseInt(e.target.value) || 1), animalCount))}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              />
+            </div>
+          )}
         </div>
-        <p className="text-sm text-gray-600 mb-2">{service.description}</p>
-        {relevantOption ? (
-          <div className="flex items-center justify-between mb-2">
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                checked={selectedServices.includes(relevantOption.id)}
-                onChange={() => toggleService(relevantOption.id)}
-                className="mr-2"
-              />
-              {relevantOption.label}
-            </label>
-            <span className="font-semibold">${relevantOption.price}</span>
-          </div>
-        ) : (
-          <div className="flex items-center justify-between">
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                checked={selectedServices.includes(service.id)}
-                onChange={() => toggleService(service.id)}
-                className="mr-2"
-              />
-              {service.name}
-            </label>
-            <span className="font-semibold">${service.price} per animal</span>
-          </div>
-        )}
-        {service.category === "Additional Services" && selectedServices.includes(service.id) && (
-          <div className="mt-2">
-            <label className="block text-sm font-medium text-gray-700">Number of animals for this service:</label>
-            <input
-              type="number"
-              min="1"
-              max={animalCount}
-              value={additionalServiceCounts[service.id] || animalCount}
-              onChange={(e) => handleAdditionalServiceCount(service.id, Math.min(Math.max(1, parseInt(e.target.value) || 1), animalCount))}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            />
-          </div>
-        )}
       </div>
     )
   }
@@ -234,11 +237,11 @@ export default function ServicesSection() {
       case 1:
         return (
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold">What type of animal do you have?</h3>
+            <h3 className="text-2xl font-semibold mb-6 text-purple-800">What type of animal do you have?</h3>
             <select 
               value={animalType} 
               onChange={(e) => setAnimalType(e.target.value)}
-              className="w-full p-2 border rounded"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
             >
               <option value="">Select animal type</option>
               <option value="Dog">Dog</option>
@@ -248,7 +251,7 @@ export default function ServicesSection() {
             <button 
               onClick={() => setStep(2)} 
               disabled={!animalType}
-              className="px-4 py-2 bg-purple-600 text-white rounded disabled:bg-gray-400"
+              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed"
             >
               Next
             </button>
@@ -257,17 +260,17 @@ export default function ServicesSection() {
       case 2:
         return (
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold">How many animals?</h3>
+            <h3 className="text-2xl font-semibold mb-6 text-purple-800">How many animals?</h3>
             <input
               type="number"
               min="1"
               value={animalCount}
               onChange={(e) => setAnimalCount(Math.max(1, parseInt(e.target.value)))}
-              className="w-full p-2 border rounded"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
             />
             <button 
               onClick={() => setStep(3)}
-              className="px-4 py-2 bg-purple-600 text-white rounded"
+              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
             >
               Next
             </button>
@@ -276,17 +279,17 @@ export default function ServicesSection() {
       case 3:
         return (
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold">How many days do you need service?</h3>
+            <h3 className="text-2xl font-semibold mb-6 text-purple-800">How many days do you need service?</h3>
             <input
               type="number"
               min="1"
               value={duration}
               onChange={(e) => setDuration(Math.max(1, parseInt(e.target.value)))}
-              className="w-full p-2 border rounded"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
             />
             <button 
               onClick={() => setStep(4)}
-              className="px-4 py-2 bg-purple-600 text-white rounded"
+              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
             >
               Next
             </button>
@@ -295,7 +298,7 @@ export default function ServicesSection() {
       case 4:
         return (
           <div>
-            <h3 className="text-xl font-semibold mb-4">Select Your Services</h3>
+            <h3 className="text-2xl font-semibold mb-6 text-purple-800">Select Your Services</h3>
             {Object.entries(filteredServices.reduce((acc, service) => {
               acc[service.category] = [...(acc[service.category] || []), service]
               return acc
@@ -313,16 +316,16 @@ export default function ServicesSection() {
   }
 
   return (
-    <section className="w-full py-12 bg-gray-100">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-8 text-purple-600">Our Services & Pricing</h2>
-        <div className="grid gap-8 lg:grid-cols-2">
+    <section className="w-full py-16 bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100">
+      <div className="container mx-auto px-4 max-w-5xl">
+        <h2 className="text-4xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">Pricing Estimate Calculator</h2>
+        <div className="grid gap-12 lg:grid-cols-2">
           <div>
             {renderStep()}
             {step > 1 && (
               <button
                 onClick={resetForm}
-                className="mt-4 px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition-colors flex items-center"
+                className="mt-6 px-4 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300 transition-colors duration-300 flex items-center justify-center"
               >
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Start Over
@@ -331,46 +334,50 @@ export default function ServicesSection() {
           </div>
           <div>
             <h3 className="text-xl font-semibold mb-4">Your Estimate</h3>
-            <div className="bg-white p-4 rounded-lg shadow-md">
-              <div className="mb-4">
-                <p><strong>Animal Type:</strong> {animalType || 'Not selected'}</p>
-                <p><strong>Number of Animals:</strong> {animalCount}</p>
-                <p><strong>Duration:</strong> {duration} day(s)</p>
-              </div>
-              {selectedServices.map(serviceId => {
-                const service = services.find(s => s.id === Math.floor(serviceId))
-                if (service) {
-                  if (service.options) {
-                    const option = service.options.find(o => o.id === serviceId)
-                    if (option) {
+            <div className="bg-white p-6 rounded-xl shadow-lg relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-pink-400 opacity-20"></div>
+              <div className="relative z-10">
+                <div className="mb-6">
+                  <h4 className="text-lg font-semibold mb-2 text-purple-800">Service Details</h4>
+                  <p><strong className="text-gray-700">Animal Type:</strong> <span className="text-purple-600">{animalType || 'Not selected'}</span></p>
+                  <p><strong className="text-gray-700">Number of Animals:</strong> <span className="text-purple-600">{animalCount}</span></p>
+                  <p><strong className="text-gray-700">Duration:</strong> <span className="text-purple-600">{duration} day(s)</span></p>
+                </div>
+                {selectedServices.map(serviceId => {
+                  const service = services.find(s => s.id === Math.floor(serviceId))
+                  if (service) {
+                    if (service.options) {
+                      const option = service.options.find(o => o.id === serviceId)
+                      if (option) {
+                        return (
+                          <div key={serviceId} className="flex justify-between mb-2">
+                            <span>{service.name} - {option.label}</span>
+                            <span>${option.price * duration}</span>
+                          </div>
+                        )
+                      }
+                    } else {
+                      const count = additionalServiceCounts[serviceId] || animalCount
                       return (
                         <div key={serviceId} className="flex justify-between mb-2">
-                          <span>{service.name} - {option.label}</span>
-                          <span>${option.price * duration}</span>
+                          <span>{service.name} (x{count})</span>
+                          <span>${service.price * count * duration}</span>
                         </div>
                       )
                     }
-                  } else {
-                    const count = additionalServiceCounts[serviceId] || animalCount
-                    return (
-                      <div key={serviceId} className="flex justify-between mb-2">
-                        <span>{service.name} (x{count})</span>
-                        <span>${service.price * count * duration}</span>
-                      </div>
-                    )
                   }
-                }
-                return null
-              })}
-              <div className="border-t pt-2 mt-2">
-                <div className="flex justify-between font-semibold">
-                  <span>Total Estimate</span>
-                  <span>${calculateTotal().toFixed(2)}</span>
+                  return null
+                })}
+                <div className="border-t-2 border-purple-200 pt-4 mt-4">
+                  <div className="flex justify-between font-bold text-lg">
+                    <span className="text-purple-800">Total Estimate</span>
+                    <span className="text-purple-600">${calculateTotal().toFixed(2)}</span>
+                  </div>
                 </div>
               </div>
             </div>
             <button
-              className="w-full mt-4 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors disabled:bg-gray-400"
+              className="w-full mt-6 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-colors duration-300 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed"
               disabled={selectedServices.length === 0 || step < 4}
             >
               Book Now

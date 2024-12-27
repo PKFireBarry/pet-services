@@ -27,12 +27,12 @@ export default function PetServicesLanding() {
       <main className="flex-1">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-16 py-12">
           <HeroSection />
-          <About />
           <WhyChooseUs/>
+          <About />
           <ServicesSection />
           <TeamSection/>
-          <TermsOfServiceSection />
           <Contact/>
+          <TermsOfServiceSection />
         </div>
       </main>
       <Footer />
