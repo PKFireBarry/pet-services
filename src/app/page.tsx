@@ -36,7 +36,7 @@ export default function PetServicesLanding() {
         </div>
       </main>
       <Footer />
-      <BookNowButton scrollY={scrollY} />
+      <BookNowButton  />
     </div>
   )
 }
