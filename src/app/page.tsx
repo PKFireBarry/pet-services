@@ -13,6 +13,7 @@ import TeamSection from './components/TeamSection'
 import Contact from './components/Contact'
 import AnimatedSection from './components/AnimatedSection'
 
+
 export default function PetServicesLanding() {
   return (
     <AnimatePresence>
@@ -28,19 +29,13 @@ export default function PetServicesLanding() {
               <TeamSection />
             </AnimatedSection>
 
-
               <WhyChooseUs />
 
-
-
               <About />
-
 
             <AnimatedSection>
               <ServicesSection />
             </AnimatedSection>
-
-
 
             <AnimatedSection>
               <Contact />
