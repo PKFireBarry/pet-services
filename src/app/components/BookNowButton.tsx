@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import { Bone } from 'lucide-react'
+
 
 export default function BookNowButton() {
   return (
@@ -13,7 +13,7 @@ export default function BookNowButton() {
       href="#contact"
       className="rounded-full bg-yellow-400 w-24 h-6 text-purple-900 text-center hover:bg-yellow-300 shadow-lg transition-all duration-2000 animate-bounce transform hover:scale-105 mx-4 lg:block md:block hidden">
         
-        Book Now
+        Book Now!
       </a>
     </motion.div>
   )

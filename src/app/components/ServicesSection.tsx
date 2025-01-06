@@ -82,12 +82,12 @@ export default function ServicesSection() {
   const [animalCount, setAnimalCount] = useState(1)
   const [duration, setDuration] = useState(1)
   const [selectedServices, setSelectedServices] = useState<number[]>([])
-  const [additionalServiceCounts, setAdditionalServiceCounts] = useState<Record<number, number>>({})
+
 
   useEffect(() => {
     // Reset selected services when animal type or count changes
     setSelectedServices([])
-    setAdditionalServiceCounts({})
+
   }, [animalType, animalCount])
 
   const isLargeAnimal = animalType === "Large"
@@ -100,12 +100,7 @@ export default function ServicesSection() {
     )
   }
 
-  const handleAdditionalServiceCount = (serviceId: number, count: number) => {
-    setAdditionalServiceCounts(prev => ({
-      ...prev,
-      [serviceId]: count,
-    }))
-  }
+
 
   const calculateTotal = () => {
     let total = 0
@@ -216,7 +211,7 @@ export default function ServicesSection() {
     setAnimalCount(1)
     setDuration(1)
     setSelectedServices([])
-    setAdditionalServiceCounts({})
+
   }
 
   const renderStep = () => {

@@ -48,7 +48,7 @@ export default function TermsOfServiceSection() {
                 1. Acceptance of These Terms
               </h3>
               <p>
-                By requesting and/or using our pet care services ("Services"), you acknowledge that you have
+                By requesting and/or using our pet care services (&quot;Services&quot;), you acknowledge that you have
                 read, understand, and agree to these Terms. If you do not agree with any part of these Terms,
                 you may not use our Services.
               </p>
@@ -73,7 +73,7 @@ export default function TermsOfServiceSection() {
                 3. Our Services
               </h3>
               <p>
-                We provide pet care services directly to pet owners ("you" or "Pet Owner"), including but not
+                We provide pet care services directly to pet owners (&quot;you&quot; or "Pet Owner&quot;), including but not
                 limited to:
               </p>
               <ul className="list-disc pl-6 mt-2 space-y-1">
@@ -166,14 +166,14 @@ export default function TermsOfServiceSection() {
               <h4 className="font-semibold mt-4">7.1 Pet Behavior and Health</h4>
               <p>
                 You acknowledge that all pets may respond differently to various situations and that we cannot
-                predict every pet's reaction. You accept all risks associated with our care of your pet(s),
+                predict every pet&quot;s reaction. You accept all risks associated with our care of your pet(s),
                 including but not limited to illness, injury, or escape.
               </p>
               <h4 className="font-semibold mt-4">7.2 Indemnification</h4>
               <p>
                 You agree to indemnify and hold harmless Borkin Industries, its owner(s), employees, and
                 agents from any claims, damages, or expenses (including veterinary fees and legal costs)
-                arising from your pet's behavior, health issues, or any misrepresentations you have made.
+                arising from your pet&quot;s behavior, health issues, or any misrepresentations you have made.
               </p>
             </div>
 
