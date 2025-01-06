@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { PawPrintIcon as Paw, Facebook, Instagram, Twitter } from 'lucide-react'
+import { PawPrintIcon as Paw, Facebook, Instagram, } from 'lucide-react'
 
 export default function Footer() {
   return (

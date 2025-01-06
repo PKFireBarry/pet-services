@@ -56,7 +56,7 @@ function About() {
             className="text-gray-700 dark:text-gray-300 leading-relaxed"
           >
             <motion.p variants={fadeInUp} className="mt-4 text-lg md:text-xl">
-            Our mission is to provide exceptional care for the community's animals by leveraging Kaitlyn's extensive knowledge and passion for your pets' well-being. We are committed to offering pet sitting services and unique opportunities that go above and beyond, ensuring your pets receive the best possible care.
+            Our mission is to provide exceptional care for the community&apos;s animals by leveraging Kaitlyn&apos;s extensive knowledge and passion for your pets&apos; well-being. We are committed to offering pet sitting services and unique opportunities that go above and beyond&apos; ensuring your pets receive the best possible care.
             </motion.p>
 
             <motion.blockquote variants={fadeInUp} className="relative mt-8 text-2xl md:text-3xl italic font-semibold text-purple-700 dark:text-purple-300">
@@ -68,7 +68,7 @@ function About() {
               >
                 <path d="M..." /> {/* SVG path for a stylized quotation mark */}
               </svg>
-              Dedicated to providing our community's beloved pets with the care, knowledge, and attention they deserve—values instilled in me by my pop.
+              Dedicated to providing our community&apos;s beloved pets with the care, knowledge&apos; and attention they deserve—values instilled in me by my pop.
             </motion.blockquote>
 
             <motion.p variants={fadeInUp} className="mt-6 text-lg font-medium text-purple-700 dark:text-purple-300">

@@ -180,7 +180,7 @@ export default function ContactComponent() {
               <motion.div variants={itemVariants}>
                 <h3 className="text-2xl font-semibold mb-4 text-purple-600 dark:text-purple-400">Fur-tastic Support</h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  We're excited to hear from you and your furry friends! Reach out with any questions, and we'll respond as soon as possible.
+                  We&apos;re excited to hear from you and your furry friends! Reach out with any questions, and we&apos;ll respond as soon as possible.
                 </p>
               </motion.div>
               <motion.div 
