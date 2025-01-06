@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Dog, Cat, Rabbit, Droplet, Scissors, Heart, RefreshCw } from 'lucide-react'
+import { Dog, Fish, Droplet, Scissors, Heart, RefreshCw, Phone } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 const services = [
+  // Overnight Pet Sitting for Dogs
   {
     id: 1,
     category: "Overnight Pet Sitting",
     name: "Dog Sitting",
-    description: "Includes dinner, sleepover, breakfast, and light cleaning.",
+    description: "Includes dinner, sleepover, breakfast, and light cleaning. Starting at:",
     options: [
       { id: 1.1, label: "1 Dog", price: 100, maxAnimals: 1 },
       { id: 1.2, label: "2 Dogs", price: 120, maxAnimals: 2 },
@@ -16,37 +18,28 @@ const services = [
     icon: Dog,
     animalType: "Dog",
   },
-  {
-    id: 2,
-    category: "Overnight Pet Sitting",
-    name: "Cat Sitting",
-    description: "Includes dinner, sleepover, breakfast, and light cleaning.",
-    options: [
-      { id: 2.1, label: "1 Cat", price: 50, maxAnimals: 1 },
-      { id: 2.2, label: "More than 1 Cat", price: 75, maxAnimals: Infinity },
-    ],
-    icon: Cat,
-    animalType: "Cat",
-  },
+  // Overnight Pet Sitting for Small Animals
   {
     id: 3,
     category: "Overnight Pet Sitting",
-    name: "Exotics Sitting",
-    description: "Includes dinner, sleepover, breakfast, and light cleaning.",
+    name: "Small Animal Sitting",
+    description: "Care for rabbits, fish, reptiles, etc. Includes feeding and habitat maintenance. Starting at:",
     options: [
-      { id: 3.1, label: "1 Animal", price: 85, maxAnimals: 1 },
-      { id: 3.2, label: "Up to 3 Animals", price: 160, maxAnimals: 3 },
-      { id: 3.3, label: "More than 3 Animals", price: 200, maxAnimals: Infinity },
+      { id: 3.1, label: "1 Animals", price: 75, maxAnimals: 1 },
+      { id: 3.2, label: "2 Animals", price: 100, maxAnimals: 2 },
+      { id: 3.3, label: "Up to 5 Animals", price: 150, maxAnimals: 5 },
+      { id: 3.4, label: "More than 5 Animals", price: 200, maxAnimals: Infinity },
     ],
-    icon: Rabbit,
-    animalType: "Exotic",
+    icon: Fish,
+    animalType: "Small",
   },
+  // Additional Services
   {
     id: 4,
     category: "Additional Services",
     name: "Medication Administration",
     price: 35,
-    description: "Per animal",
+    description: "Per animal per night",
     icon: Heart,
     animalType: "All",
   },
@@ -55,7 +48,7 @@ const services = [
     category: "Additional Services",
     name: "Baths",
     price: 20,
-    description: "Per animal",
+    description: "Base price",
     icon: Droplet,
     animalType: "All",
   },
@@ -64,31 +57,20 @@ const services = [
     category: "Additional Services",
     name: "Nail Trimming",
     price: 15,
-    description: "Per animal",
+    description: "Base price",
     icon: Scissors,
     animalType: "All",
   },
+  // Drop-in Visits
   {
     id: 7,
     category: "Other Services",
-    name: "Dog Walking",
-    options: [
-      { id: 7.1, label: "1 Dog", price: 20, maxAnimals: 1 },
-      { id: 7.2, label: "2 Dogs", price: 35, maxAnimals: 2 },
-      { id: 7.3, label: "More than 2 Dogs", price: 75, maxAnimals: Infinity },
-    ],
-    icon: Dog,
-    animalType: "Dog",
-  },
-  {
-    id: 8,
-    category: "Other Services",
     name: "Drop-in Visits",
     options: [
-      { id: 8.1, label: "Dog/Cat", price: 50, animalType: ["Dog", "Cat"] },
-      { id: 8.2, label: "Exotics", price: 50, animalType: "Exotic" },
+      { id: 7.1, label: "Dog", price: 55, animalType: ["Dog"] },
+      { id: 7.2, label: "Small Animal", price: 50, animalType: ["Small"] },
     ],
-    description: "Just stop by to feed and let out.",
+    description: "Just stop by to feed and check on the animals. Starting at:",
     icon: Dog,
     animalType: "All",
   },
@@ -108,6 +90,8 @@ export default function ServicesSection() {
     setAdditionalServiceCounts({})
   }, [animalType, animalCount])
 
+  const isLargeAnimal = animalType === "Large"
+
   const toggleService = (serviceId: number) => {
     setSelectedServices(prev =>
       prev.includes(serviceId)
@@ -125,6 +109,9 @@ export default function ServicesSection() {
 
   const calculateTotal = () => {
     let total = 0
+    if (isLargeAnimal) {
+      return total
+    }
     selectedServices.forEach(serviceId => {
       const service = services.find(s => s.id === Math.floor(serviceId))
       if (service) {
@@ -134,34 +121,40 @@ export default function ServicesSection() {
             total += option.price * duration
           }
         } else {
-          const count = additionalServiceCounts[serviceId] || animalCount
-          total += service.price * count * duration
+          let count = 1
+          if (service.id === 4) {
+            // Medication Administration is per animal per night
+            count = animalCount * duration
+          }
+          total += service.price * count
         }
       }
     })
     return total
   }
 
-  const filteredServices = services.filter(service => 
-    service.animalType === animalType || service.animalType === "All"
-  )
+  const filteredServices = isLargeAnimal
+    ? []
+    : services.filter(service =>
+        service.animalType === animalType || service.animalType === "All"
+      )
 
   const getRelevantOption = (service: typeof services[0]) => {
-    if (!service.options) return null;
+    if (!service.options) return null
     return service.options.find(option => {
       if ('maxAnimals' in option) {
-        return option.maxAnimals >= animalCount;
+        return option.maxAnimals >= animalCount
       } else if ('animalType' in option) {
         if (Array.isArray(option.animalType)) {
-          return option.animalType.includes(animalType);
+          return option.animalType.includes(animalType)
         } else {
-          return option.animalType === animalType;
+          return option.animalType === animalType
         }
       } else {
-        return false;
+        return false
       }
-    });
-  };
+    })
+  }
 
   const renderServiceItem = (service: typeof services[0]) => {
     const IconComponent = service.icon
@@ -170,7 +163,14 @@ export default function ServicesSection() {
     if (service.options && !relevantOption) return null
 
     return (
-      <div key={service.id} className="mb-6 p-6 bg-white bg-opacity-80 backdrop-filter backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 relative overflow-hidden">
+      <motion.div
+        key={service.id}
+        id='services'
+        className="mb-6 p-6 bg-white bg-opacity-80 backdrop-filter backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 relative overflow-hidden"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: service.id * 0.1 }}
+      >
         <div className="absolute inset-0 bg-gradient-to-br from-purple-200 to-pink-200 opacity-10 z-0"></div>
         <div className="relative z-10">
           <div className="flex items-center mb-2">
@@ -202,24 +202,11 @@ export default function ServicesSection() {
                 />
                 {service.name}
               </label>
-              <span className="font-semibold">${service.price} per animal</span>
-            </div>
-          )}
-          {service.category === "Additional Services" && selectedServices.includes(service.id) && (
-            <div className="mt-2">
-              <label className="block text-sm font-medium text-gray-700">Number of animals for this service:</label>
-              <input
-                type="number"
-                min="1"
-                max={animalCount}
-                value={additionalServiceCounts[service.id] || animalCount}
-                onChange={(e) => handleAdditionalServiceCount(service.id, Math.min(Math.max(1, parseInt(e.target.value) || 1), animalCount))}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              />
+              <span className="font-semibold">${service.price}</span>
             </div>
           )}
         </div>
-      </div>
+      </motion.div>
     )
   }
 
@@ -236,30 +223,40 @@ export default function ServicesSection() {
     switch (step) {
       case 1:
         return (
-          <div className="space-y-4">
+          <motion.div
+            className="space-y-4"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <h3 className="text-2xl font-semibold mb-6 text-purple-800">What type of animal do you have?</h3>
-            <select 
-              value={animalType} 
+            <select
+              value={animalType}
               onChange={(e) => setAnimalType(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
             >
               <option value="">Select animal type</option>
               <option value="Dog">Dog</option>
-              <option value="Cat">Cat</option>
-              <option value="Exotic">Exotic</option>
+              <option value="Large">Large Animal</option>
+              <option value="Small">Small Animal</option>
             </select>
-            <button 
-              onClick={() => setStep(2)} 
+            <button
+              onClick={() => setStep(2)}
               disabled={!animalType}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed"
+              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Next
             </button>
-          </div>
+          </motion.div>
         )
       case 2:
         return (
-          <div className="space-y-4">
+          <motion.div
+            className="space-y-4"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <h3 className="text-2xl font-semibold mb-6 text-purple-800">How many animals?</h3>
             <input
               type="number"
@@ -268,36 +265,75 @@ export default function ServicesSection() {
               onChange={(e) => setAnimalCount(Math.max(1, parseInt(e.target.value)))}
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
             />
-            <button 
+            <button
               onClick={() => setStep(3)}
               className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
             >
               Next
             </button>
-          </div>
+          </motion.div>
         )
       case 3:
-        return (
-          <div className="space-y-4">
-            <h3 className="text-2xl font-semibold mb-6 text-purple-800">How many days do you need service?</h3>
-            <input
-              type="number"
-              min="1"
-              value={duration}
-              onChange={(e) => setDuration(Math.max(1, parseInt(e.target.value)))}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
-            />
-            <button 
-              onClick={() => setStep(4)}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
+        if (isLargeAnimal) {
+          return (
+            <motion.div
+              className="space-y-4 text-center"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
             >
-              Next
-            </button>
-          </div>
-        )
+              <h3 className="text-2xl font-semibold mb-6 text-purple-800">Contact Us for an Estimate</h3>
+              <p className="text-gray-700 mb-6">
+                For large animals, please contact us directly to get a personalized estimate.
+              </p>
+              <a
+                href="tel:1234567890"
+                className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
+              >
+                <Phone className="w-5 h-5 mr-2" />
+                Call Us
+              </a>
+              <button
+                onClick={resetForm}
+                className="mt-6 px-4 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300 transition-colors duration-300 flex items-center justify-center mx-auto"
+              >
+                <RefreshCw className="w-4 h-4 mr-2" />
+                Start Over
+              </button>
+            </motion.div>
+          )
+        } else {
+          return (
+            <motion.div
+              className="space-y-4"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h3 className="text-2xl font-semibold mb-6 text-purple-800">How many days do you need service?</h3>
+              <input
+                type="number"
+                min="1"
+                value={duration}
+                onChange={(e) => setDuration(Math.max(1, parseInt(e.target.value)))}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+              />
+              <button
+                onClick={() => setStep(4)}
+                className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
+              >
+                Next
+              </button>
+            </motion.div>
+          )
+        }
       case 4:
         return (
-          <div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
             <h3 className="text-2xl font-semibold mb-6 text-purple-800">Select Your Services</h3>
             {Object.entries(filteredServices.reduce((acc, service) => {
               acc[service.category] = [...(acc[service.category] || []), service]
@@ -308,7 +344,7 @@ export default function ServicesSection() {
                 {categoryServices.map(renderServiceItem)}
               </div>
             ))}
-          </div>
+          </motion.div>
         )
       default:
         return null
@@ -318,74 +354,119 @@ export default function ServicesSection() {
   return (
     <section className="w-full py-16 bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100">
       <div className="container mx-auto px-4 max-w-5xl">
-        <h2 className="text-4xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">Pricing Estimate Calculator</h2>
+        <motion.h2
+          className="text-4xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          Pricing Estimate Calculator
+        </motion.h2>
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
             {renderStep()}
-            {step > 1 && (
-              <button
+            {!isLargeAnimal && step > 1 && (
+              <motion.button
                 onClick={resetForm}
                 className="mt-6 px-4 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300 transition-colors duration-300 flex items-center justify-center"
+                whileHover={{ scale: 1.05 }}
               >
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Start Over
-              </button>
+              </motion.button>
             )}
           </div>
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <h3 className="text-xl font-semibold mb-4">Your Estimate</h3>
             <div className="bg-white p-6 rounded-xl shadow-lg relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-pink-400 opacity-20"></div>
               <div className="relative z-10">
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold mb-2 text-purple-800">Service Details</h4>
-                  <p><strong className="text-gray-700">Animal Type:</strong> <span className="text-purple-600">{animalType || 'Not selected'}</span></p>
-                  <p><strong className="text-gray-700">Number of Animals:</strong> <span className="text-purple-600">{animalCount}</span></p>
-                  <p><strong className="text-gray-700">Duration:</strong> <span className="text-purple-600">{duration} day(s)</span></p>
-                </div>
-                {selectedServices.map(serviceId => {
-                  const service = services.find(s => s.id === Math.floor(serviceId))
-                  if (service) {
-                    if (service.options) {
-                      const option = service.options.find(o => o.id === serviceId)
-                      if (option) {
-                        return (
-                          <div key={serviceId} className="flex justify-between mb-2">
-                            <span>{service.name} - {option.label}</span>
-                            <span>${option.price * duration}</span>
-                          </div>
-                        )
-                      }
-                    } else {
-                      const count = additionalServiceCounts[serviceId] || animalCount
-                      return (
-                        <div key={serviceId} className="flex justify-between mb-2">
-                          <span>{service.name} (x{count})</span>
-                          <span>${service.price * count * duration}</span>
-                        </div>
-                      )
-                    }
-                  }
-                  return null
-                })}
-                <div className="border-t-2 border-purple-200 pt-4 mt-4">
-                  <div className="flex justify-between font-bold text-lg">
-                    <span className="text-purple-800">Total Estimate</span>
-                    <span className="text-purple-600">${calculateTotal().toFixed(2)}</span>
+                {isLargeAnimal ? (
+                  <div className="text-center">
+                    <h4 className="text-lg font-semibold mb-2 text-purple-800">Contact Us for an Estimate</h4>
+                    <p className="text-gray-700">
+                      Please contact us directly to get a personalized estimate for large animals.
+                    </p>
+                    <a
+                      href="tel:1234567890"
+                      className="inline-flex items-center justify-center mt-6 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
+                    >
+                      <Phone className="w-5 h-5 mr-2" />
+                      Call Us
+                    </a>
                   </div>
-                </div>
+                ) : (
+                  <>
+                    <div className="mb-6">
+                      <h4 className="text-lg font-semibold mb-2 text-purple-800">Service Details</h4>
+                      <p>
+                        <strong className="text-gray-700">Animal Type:</strong>{' '}
+                        <span className="text-purple-600">{animalType || 'Not selected'}</span>
+                      </p>
+                      <p>
+                        <strong className="text-gray-700">Number of Animals:</strong>{' '}
+                        <span className="text-purple-600">{animalCount}</span>
+                      </p>
+                      <p>
+                        <strong className="text-gray-700">Duration:</strong>{' '}
+                        <span className="text-purple-600">{duration} day(s)</span>
+                      </p>
+                    </div>
+                    {selectedServices.map(serviceId => {
+                      const service = services.find(s => s.id === Math.floor(serviceId))
+                      if (service) {
+                        if (service.options) {
+                          const option = service.options.find(o => o.id === serviceId)
+                          if (option) {
+                            return (
+                              <div key={serviceId} className="flex justify-between mb-2">
+                                <span>{service.name} - {option.label}</span>
+                                <span>${(option.price * duration).toFixed(2)}</span>
+                              </div>
+                            )
+                          }
+                        } else {
+                          let count = 1
+                          if (service.id === 4) {
+                            // Medication Administration is per animal per night
+                            count = animalCount * duration
+                          }
+                          return (
+                            <div key={serviceId} className="flex justify-between mb-2">
+                              <span>{service.name}</span>
+                              <span>${(service.price * count).toFixed(2)}</span>
+                            </div>
+                          )
+                        }
+                      }
+                      return null
+                    })}
+                    <div className="border-t-2 border-purple-200 pt-4 mt-4">
+                      <div className="flex justify-between font-bold text-lg">
+                        <span className="text-purple-800">Total Estimate</span>
+                        <span className="text-purple-600">${calculateTotal().toFixed(2)}</span>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
-            <button
-              className="w-full mt-6 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-colors duration-300 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed"
-              disabled={selectedServices.length === 0 || step < 4}
-            >
-              Book Now
-            </button>
-          </div>
+            {!isLargeAnimal && (
+              <motion.button
+                className="w-full mt-6 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={selectedServices.length === 0 || step < 4}
+                whileHover={{ scale: 1.02 }}
+              >
+                Book Now
+              </motion.button>
+            )}
+          </motion.div>
         </div>
       </div>
     </section>
   )
 }
-

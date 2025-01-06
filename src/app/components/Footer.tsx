@@ -8,17 +8,12 @@ export default function Footer() {
         <div className="flex flex-col items-center md:items-start mb-4 md:mb-0">
           <Link href="#" className="flex items-center">
             <Paw className="h-8 w-8 text-yellow-400" />
-            <span className="ml-2 text-2xl font-bold">Paw Perfect</span>
+            <span className="ml-2 text-2xl font-bold">Borkin Industries</span>
           </Link>
-          <p className="mt-2 text-sm">© 2024 Paw Perfect. All rights reserved.</p>
+          <p className="mt-2 text-sm">© 2025 Borkin Industries. All rights reserved.</p>
         </div>
         <nav className="flex gap-4 sm:gap-6">
-          <Link className="text-sm hover:underline underline-offset-4" href="#">
-            Terms of Service
-          </Link>
-          <Link className="text-sm hover:underline underline-offset-4" href="#">
-            Privacy Policy
-          </Link>
+
         </nav>
         <div className="flex items-center space-x-4 mt-4 md:mt-0">
           <Link href="#" className="text-white hover:text-yellow-400 transition-colors">
@@ -28,10 +23,6 @@ export default function Footer() {
           <Link href="#" className="text-white hover:text-yellow-400 transition-colors">
             <Instagram className="h-6 w-6" />
             <span className="sr-only">Instagram</span>
-          </Link>
-          <Link href="#" className="text-white hover:text-yellow-400 transition-colors">
-            <Twitter className="h-6 w-6" />
-            <span className="sr-only">Twitter</span>
           </Link>
         </div>
       </div>

@@ -5,14 +5,16 @@ export default function BookNowButton() {
   return (
     <motion.div 
       className="fixed bottom-4 right-4 z-50"
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.5 }}
+      initial={{ opacity: .4, y: 75 }}
+      animate={{ opacity: 1, y: -125 }}
+      transition={{ duration: 3, delay: 0.5 }}
     >
-      <button className="rounded-full bg-yellow-400 text-purple-900 hover:bg-yellow-300 shadow-lg transition-all duration-300 transform hover:scale-105">
-        <Bone className="h-6 w-6 mr-2" />
+      <a 
+      href="#contact"
+      className="rounded-full bg-yellow-400 w-24 h-6 text-purple-900 text-center hover:bg-yellow-300 shadow-lg transition-all duration-2000 animate-bounce transform hover:scale-105 mx-4 lg:block md:block hidden">
+        
         Book Now
-      </button>
+      </a>
     </motion.div>
   )
 }

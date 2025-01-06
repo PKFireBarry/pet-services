@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import React from 'react';
+import charlie from '../../photos/charlie.jpg'
 
 const staggerContainer = {
   hidden: { opacity: 0 },
@@ -44,7 +45,7 @@ function About() {
             className="flex justify-center md:justify-start"
           >
             <motion.div variants={fadeInUp}>
-              <Image src="/" width={50} height={50} alt="Caitlyn's Pet Services" className="rounded-lg shadow-lg" />
+              <Image src={charlie} alt="Kaitlyn's Pet Services" className="rounded-lg shadow-lg" />
             </motion.div>
           </motion.div>
 
@@ -55,7 +56,7 @@ function About() {
             className="text-gray-700 dark:text-gray-300 leading-relaxed"
           >
             <motion.p variants={fadeInUp} className="mt-4 text-lg md:text-xl">
-              Caitlyn&apos;s Pet Services was born from a deep-rooted passion for animals and a desire to share the love and care that Caitlyn learned from her pop at a young age. Our mission is to provide the community&apos;s animals with exceptional care, leveraging our knowledge and passion for pet well-being. We&apos;re committed to offering grooming services and opportunities that may not be available elsewhere, ensuring your pets receive the best possible care.
+            Our mission is to provide exceptional care for the community's animals by leveraging Kaitlyn's extensive knowledge and passion for your pets' well-being. We are committed to offering pet sitting services and unique opportunities that go above and beyond, ensuring your pets receive the best possible care.
             </motion.p>
 
             <motion.blockquote variants={fadeInUp} className="relative mt-8 text-2xl md:text-3xl italic font-semibold text-purple-700 dark:text-purple-300">
@@ -67,11 +68,11 @@ function About() {
               >
                 <path d="M..." /> {/* SVG path for a stylized quotation mark */}
               </svg>
-              &quot;Caitlyn&apos;s Pet Services is about providing our community&apos;s beloved pets with the knowledge and attention they deserve, just as my pop taught me.&quot;
+              Dedicated to providing our community's beloved pets with the care, knowledge, and attention they deserve—values instilled in me by my pop.
             </motion.blockquote>
 
             <motion.p variants={fadeInUp} className="mt-6 text-lg font-medium text-purple-700 dark:text-purple-300">
-              - Caitlyn, Founder
+              - Kaitlyn
             </motion.p>
           </motion.div>
         </div>

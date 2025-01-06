@@ -33,10 +33,9 @@ export default function TeamSection() {
               />
             </div>
             <h3 className="text-2xl font-bold text-purple-600 dark:text-purple-300 mb-2">Kaitlyn Bruno</h3>
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-4">Founder & Head Vet Tech</p>
+            <p className="text-xl text-gray-600 dark:text-gray-300 mb-4">Founder and Certified Veterinary Technician</p>
             <p className="text-center max-w-md text-gray-600 dark:text-gray-300 mb-6">
-              Kaitlyn has been passionate about animals since childhood. With over 4 years of experience in pet care,
-              she founded Paw Perfect to provide top-notch services to furry friends in the community.
+            Kaitlyn has been passionate about animals since childhood. With over 4 years of experience in veterinary care, she founded Borkin Industries to provide top-notch pet care services for your fur babies.
             </p>
           </motion.div>
 
