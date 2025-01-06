@@ -73,9 +73,10 @@ export default function TermsOfServiceSection() {
                 3. Our Services
               </h3>
               <p>
-                We provide pet care services directly to pet owners (&quot;you&quot; or "Pet Owner&quot;), including but not
-                limited to&quot;
+                We provide pet care services directly to pet owners (&quot;you&quot; or &quot;Pet Owner&quot;), including but not
+                limited to:
               </p>
+
               <ul className="list-disc pl-6 mt-2 space-y-1">
                 <li>Pet sitting</li>
                 <li>Dog walking</li>
