@@ -3,6 +3,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { PawPrint, Heart, Sun, Cat, Dog, Fish, Bird, Rabbit } from 'lucide-react';
+import logo from '../../photos/logo.jpg'
+import Image from "next/image";
 
 export default function HeroSection() {
   const text = "Borkin Industries";
@@ -79,7 +81,13 @@ export default function HeroSection() {
               </motion.span>
             ))}
           </h1>
-
+          <img
+              src={logo.src}
+              alt="Borkin Industries"
+              width={500}
+              height={200}
+              className="mx-auto rounded object-cover" 
+            />
           <motion.p
             className="mx-auto max-w-[700px] text-lg md:text-xl lg:text-2xl text-blue-100"
             initial={{ rotateY: 90, opacity: 0 }}

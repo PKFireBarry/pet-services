@@ -347,8 +347,8 @@ export default function ServicesSection() {
   }
 
   return (
-    <section className="w-full py-16 bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100">
-      <div className="container mx-auto px-4 max-w-5xl">
+    <section className="w-full  py-16 bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100">
+      <div className="container mt-56 mx-auto px-4 max-w-5xl">
         <motion.h2
           className="text-4xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600"
           initial={{ opacity: 0, scale: 0.8 }}
