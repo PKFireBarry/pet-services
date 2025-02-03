@@ -84,7 +84,7 @@ export default function HeroSection() {
                 }}
                 className=""
               >
-                {letter}
+
               </motion.span>
             ))}
           </h1>
