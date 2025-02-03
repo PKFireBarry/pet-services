@@ -68,7 +68,7 @@ export default function HeroSection() {
               alt="Borkin Industries"
               width={200}
               height={200}
-              className="mx-auto object-cover rounded-full h-96 w-96" 
+              className="mx-auto object-cover rounded-full h-84 w-84" 
             />
             {letters.map((letter, index) => (
               <motion.span
