@@ -22,15 +22,14 @@ interface SchedulingFeatureProps {
   description: string;
 }
 
-// Custom easing function for smoother animations
 const customEasing = [0.25, 0.1, 0.25, 1];
 
 const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: -1750 },
+  hidden: { opacity: 0, y: 50 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 1, ease: customEasing },
+    transition: { duration: 0.8, ease: customEasing },
   },
 };
 
@@ -39,7 +38,7 @@ const subtleScale: Variants = {
   visible: {
     scale: 1,
     opacity: 1,
-    transition: { duration: 1, ease: customEasing },
+    transition: { duration: 0.8, ease: customEasing },
   },
 };
 
@@ -47,29 +46,29 @@ const WhyChooseUs = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.001,
+    threshold: 0,
+    rootMargin: "0px 0px 0px 0px"
   });
 
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   useEffect(() => {
-    if (inView) {
-      controls.start('visible');
-    }
-  }, [controls, inView]);
+    controls.start('visible');
+  }, [controls]);
 
   return (
     <motion.section
       id="why-choose-us"
       className="py-16 bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg"
       style={{ y }}
+      initial="visible"
+      animate={controls}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
-          initial="hidden"
+          initial="visible"
           animate={controls}
-
           className="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-white"
         >
           Why Choose My Pet Care Service?
@@ -77,7 +76,7 @@ const WhyChooseUs = () => {
 
         <motion.div
           ref={ref}
-          initial="hidden"
+          initial="visible"
           animate={controls}
           variants={{
             visible: {
@@ -96,7 +95,7 @@ const WhyChooseUs = () => {
 
         <motion.div
           ref={ref}
-          initial="hidden"
+          initial="visible"
           animate={controls}
           variants={{
             visible: {
@@ -111,7 +110,7 @@ const WhyChooseUs = () => {
           <MotionFeatureCard
             icon={<Users className="w-12 h-12 text-purple-600 dark:text-purple-400" />}
             title="Meet Your Sitter Before Scheduling"
-            description="We offer an in-home consultation before your first service for a small fee. This allows you and your pet to get comfortable with your sitter, ensuring it’s the perfect fit for your furry family member's needs."
+            description="We offer an in-home consultation before your first service for a small fee. This allows you and your pet to get comfortable with your sitter, ensuring it's the perfect fit for your furry family member's needs."
           />
           <MotionFeatureCard
             icon={<Heart className="w-12 h-12 text-purple-600 dark:text-purple-400" />}
@@ -122,7 +121,7 @@ const WhyChooseUs = () => {
 
         <motion.div
           ref={ref}
-          initial="hidden"
+          initial="visible"
           animate={controls}
           variants={{
             visible: {
@@ -160,8 +159,6 @@ const WhyChooseUs = () => {
     </motion.section>
   );
 };
-
-export default WhyChooseUs;
 
 const StatCard = forwardRef<HTMLDivElement, StatCardProps>(({ number, label }, ref) => {
   return (
@@ -218,3 +215,5 @@ const SchedulingFeature = forwardRef<HTMLDivElement, SchedulingFeatureProps>(
 SchedulingFeature.displayName = 'SchedulingFeature';
 
 const MotionSchedulingFeature = motion(SchedulingFeature);
+
+export default WhyChooseUs;
