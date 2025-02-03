@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect, forwardRef } from 'react';
 import { Check, Clock, Calendar, Heart, Users } from 'lucide-react';
-import { motion, useAnimation, Variants, useViewportScroll, useTransform } from 'framer-motion';
+import { motion, useAnimation, Variants, useViewportScroll, useTransform, useScroll } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 interface StatCardProps {
@@ -26,7 +26,7 @@ interface SchedulingFeatureProps {
 const customEasing = [0.25, 0.1, 0.25, 1];
 
 const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 60 },
+  hidden: { opacity: 0, y: -1750 },
   visible: {
     opacity: 1,
     y: 0,
@@ -47,10 +47,10 @@ const WhyChooseUs = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.2,
+    threshold: 0.001,
   });
 
-  const { scrollYProgress } = useViewportScroll();
+  const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const WhyChooseUs = () => {
         <motion.h2
           initial="hidden"
           animate={controls}
-          variants={fadeInUp}
+
           className="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-white"
         >
           Why Choose My Pet Care Service?
@@ -142,7 +142,7 @@ const WhyChooseUs = () => {
             <MotionSchedulingFeature
               icon={<Clock className="w-6 h-6 text-purple-600 dark:text-purple-400" />}
               title="Last-minute Requests"
-              description="We'll have an experienced sitter available for unexpected needs."
+              description="Kaitlyn is available for unexpected needs, If notiified within the first 24 hours."
             />
             <MotionSchedulingFeature
               icon={<Calendar className="w-6 h-6 text-purple-600 dark:text-purple-400" />}

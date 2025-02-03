@@ -90,7 +90,7 @@ export default function HeroSection() {
           </h1>
 
           <motion.p
-            className="mx-auto max-w-[700px] text-lg md:text-xl lg:text-2xl text-blue-100"
+            className="mx-auto max-w-[700px text-lg md:text-xl lg:text-4xl font-bold text-blue-100"
             initial={{ rotateY: 90, opacity: 0 }}
             animate={{ rotateY: 0, opacity: 1 }}
             transition={{
@@ -99,7 +99,7 @@ export default function HeroSection() {
             }}
             style={{ transformOrigin: "left center" }}
           >
-            Where tails wag and pets shine! Professional at-home pet care.
+             Professional at-home pet care.
           </motion.p>
 
           <div className="space-x-4 mt-6">

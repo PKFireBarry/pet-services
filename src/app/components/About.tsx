@@ -68,7 +68,7 @@ function About() {
               >
                 <path d="M..." /> {/* SVG path for a stylized quotation mark */}
               </svg>
-              Dedicated to providing our community&apos;s beloved pets with the care, knowledge&apos; and attention they deserve—values instilled in me by my pop.
+              Dedicated to providing our community&apos;s beloved pets with the care, knowledge&apos; and attention they deserve—values instilled in me by my Pop.
             </motion.blockquote>
 
             <motion.p variants={fadeInUp} className="mt-6 text-lg font-medium text-purple-700 dark:text-purple-300">
