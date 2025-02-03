@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { PawPrint, Heart, Sun, Cat, Dog, Fish, Bird, Rabbit } from 'lucide-react';
 import logo from '../../photos/logo.png'
-import Image from "next/image";
+
 
 export default function HeroSection() {
   const text = "Borkin Industries";
