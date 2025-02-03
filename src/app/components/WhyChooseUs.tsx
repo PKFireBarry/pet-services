@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect, forwardRef } from 'react';
 import { Check, Clock, Calendar, Heart, Users } from 'lucide-react';
-import { motion, useAnimation, Variants, useViewportScroll, useTransform, useScroll } from 'framer-motion';
+import { motion, useAnimation, Variants, useTransform, useScroll } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 interface StatCardProps {
