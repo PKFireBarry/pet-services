@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { PawPrint, Heart, Sun, Cat, Dog, Fish, Bird, Rabbit } from 'lucide-react';
-import logo from '../../photos/logo.jpg'
+import logo from '../../photos/logo.png'
 import Image from "next/image";
 
 export default function HeroSection() {
@@ -62,7 +62,14 @@ export default function HeroSection() {
         transition={{ duration: 0.8 }}
       >
         <div className="space-y-6">
-          <h1 className="text-4xl font-bold text-black tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-white">
+          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-white">
+          <img
+              src={logo.src}
+              alt="Borkin Industries"
+              width={200}
+              height={200}
+              className="mx-auto object-cover rounded-full h-96 w-96" 
+            />
             {letters.map((letter, index) => (
               <motion.span
                 key={index}
@@ -81,13 +88,7 @@ export default function HeroSection() {
               </motion.span>
             ))}
           </h1>
-          <img
-              src={logo.src}
-              alt="Borkin Industries"
-              width={500}
-              height={200}
-              className="mx-auto rounded object-cover" 
-            />
+
           <motion.p
             className="mx-auto max-w-[700px] text-lg md:text-xl lg:text-2xl text-blue-100"
             initial={{ rotateY: 90, opacity: 0 }}

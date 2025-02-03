@@ -193,7 +193,7 @@ export default function ContactComponent() {
                   whileHover={{ scale: 1.05, originX: 0 }}
                 >
                   <Mail className="h-6 w-6 text-purple-500" />
-                  <span>woof@pawsomecare.com</span>
+                  <span>borkinindustries@gmail.com</span>
                 </motion.div>
                 <motion.div 
                   className="flex items-center space-x-3 text-gray-600 dark:text-gray-400"

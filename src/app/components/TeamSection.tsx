@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
-
+import kat from '../../photos/kat.jpg'
 
 
 export default function TeamSection() {
@@ -22,15 +22,15 @@ export default function TeamSection() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="w-48 h-48 mb-8 relative">
-              <Image
-                src="/"
+            <div className="w-48 h-48 my-16 relative">
+            <Image
+  src={kat.src}
+  alt="founder"
+  width={775}
+  height={775}
+  className="w-48 h-48 rounded-full scale-150  object-cover"
+/>
 
-                alt="founder"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-full"
-              />
             </div>
             <h3 className="text-2xl font-bold text-purple-600 dark:text-purple-300 mb-2">Kaitlyn Bruno</h3>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-4">Founder and Certified Veterinary Technician</p>
