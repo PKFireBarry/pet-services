@@ -44,7 +44,7 @@ const subtleScale: Variants = {
 
 const WhyChooseUs = () => {
   const controls = useAnimation();
-  const [ref, inView] = useInView({
+  const [ref] = useInView({
     triggerOnce: true,
     threshold: 0,
     rootMargin: "0px 0px 0px 0px"
