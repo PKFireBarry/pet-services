@@ -258,7 +258,7 @@ export default function ServicesSection() {
           </div>
         ) : (
           <>
-            <div className="space-y-4 mb-6">
+            <div className="space-y-4 mb-6 mb-6">
               <div className="grid grid-cols-3 gap-4">
                 <div className="p-3 bg-purple-50 rounded-lg">
                   <p className="text-sm text-gray-600">Animal Type</p>
@@ -343,7 +343,7 @@ export default function ServicesSection() {
                         : 'border-gray-200 hover:border-purple-300'
                     }`}
                   >
-                    <span className="block text-lg font-medium">{type}</span>
+                    <span className="block text-lg font-medium">{type} Animal</span>
                   </button>
                 ))}
               </div>
@@ -485,13 +485,11 @@ export default function ServicesSection() {
         <div className="md:sticky md:top-8 h-fit">
           {renderEstimateCard()}
           {!isLargeAnimal && selectedServices.length > 0 && (
-            <motion.button
-              className="w-full mt-4 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={selectedServices.length === 0 || step < 4}
-              whileHover={{ scale: 1.02 }}
-            >
-              Book Now
-            </motion.button>
+            <>
+              {/* Consider adding content here, based on the context.
+                  For example, a summary of selected services, or a call to action.
+                  For now, leaving it as a placeholder. */}
+            </>
           )}
         </div>
       </div>
