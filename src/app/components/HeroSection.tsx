@@ -1,57 +1,55 @@
-'use client'
-
-import React from "react";
-import { motion } from "framer-motion";
-import { PawPrint, Heart, Sun, Cat, Dog, Fish, Bird, Rabbit } from 'lucide-react';
-import logo from '../../photos/logo.png'
-
+"use client"
+import { motion } from "framer-motion"
+import { PawPrint, Heart, Sun, Cat, Dog, Fish, Bird, Rabbit } from "lucide-react"
+import Image from "next/image"
+import logo from "../../photos/logo.png"
 
 export default function HeroSection() {
-  const text = "Borkin Industries";
-  const letters = text.split("");
+  const text = "Borkin Industries"
+  const letters = text.split("")
 
   // Array of pet-related icons
-  const petIcons = [PawPrint, Cat, Dog, Fish, Bird, Rabbit];
+  const petIcons = [PawPrint, Cat, Dog, Fish, Bird, Rabbit]
 
   // Function to generate random horizontal position for pet icons
   const randomHorizontalPosition = () => ({
     left: `${Math.random() * 100}%`,
-  });
+  })
 
   // Function to get a random icon from the petIcons array
-  const getRandomPetIcon = () => petIcons[Math.floor(Math.random() * petIcons.length)];
+  const getRandomPetIcon = () => petIcons[Math.floor(Math.random() * petIcons.length)]
 
   return (
     <section className="w-full min-h-screen py-12 flex flex-col items-center justify-center bg-gradient-to-r from-blue-400 to-green-400 relative overflow-hidden">
       {/* Pet Icons Background */}
       {[...Array(30)].map((_, index) => {
-        const RandomIcon = getRandomPetIcon();
+        const RandomIcon = getRandomPetIcon()
         return (
           <motion.div
             key={index}
             className="absolute text-yellow-300 opacity-20"
             style={randomHorizontalPosition()}
-            initial={{ 
-              opacity: 0, 
+            initial={{
+              opacity: 0,
               scale: 0,
               bottom: "-20%",
             }}
-            animate={{ 
+            animate={{
               opacity: [0.2, 0.5, 0],
               scale: [0.8, 1, 0.8],
               bottom: "120%",
             }}
             transition={{
-              duration: Math.random() * 10 + 10, // Random duration between 10-20 seconds
-              repeat: Infinity,
+              duration: Math.random() * 10 + 10,
+              repeat: Number.POSITIVE_INFINITY,
               repeatType: "loop",
               ease: "easeInOut",
-              delay: Math.random() * 10, // Random delay for staggered start
+              delay: Math.random() * 10,
             }}
           >
-            <RandomIcon size={Math.random() * 24 + 24} /> {/* Random size between 24-48 */}
+            <RandomIcon size={Math.random() * 24 + 24} />
           </motion.div>
-        );
+        )
       })}
 
       {/* Main Content */}
@@ -62,35 +60,36 @@ export default function HeroSection() {
         transition={{ duration: 0.8 }}
       >
         <div className="space-y-6">
-          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-white">
-          <img
-              src={logo.src}
+          <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 mx-auto">
+            <Image
+              src={logo || "/placeholder.svg"}
               alt="Borkin Industries"
-              width={200}
-              height={200}
-              className="mx-auto object-cover rounded-full h-84 w-84" 
+              layout="fill"
+              objectFit="cover"
+              className="rounded-full"
             />
+          </div>
+          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-white">
             {letters.map((letter, index) => (
               <motion.span
                 key={index}
                 initial={{ opacity: 1, y: 50 }}
-                animate={{ opacity: .5, y: 0 }}
+                animate={{ opacity: 0.5, y: 0 }}
                 transition={{
                   duration: 4,
                   delay: index * 0.1,
-                  repeat: Infinity,
+                  repeat: Number.POSITIVE_INFINITY,
                   repeatType: "reverse",
                   ease: "easeInOut",
                 }}
-                className=""
               >
-
+                {letter}
               </motion.span>
             ))}
           </h1>
 
           <motion.p
-            className="mx-auto max-w-[700px text-lg md:text-xl lg:text-4xl font-bold text-blue-100"
+            className="mx-auto max-w-[700px] text-lg md:text-xl lg:text-4xl font-bold text-blue-100"
             initial={{ rotateY: 90, opacity: 0 }}
             animate={{ rotateY: 0, opacity: 1 }}
             transition={{
@@ -99,11 +98,11 @@ export default function HeroSection() {
             }}
             style={{ transformOrigin: "left center" }}
           >
-             Professional at-home pet care.
+            Professional at-home pet care.
           </motion.p>
 
           <div className="space-x-4 mt-6">
-            <motion.a 
+            <motion.a
               className="bg-yellow-400 text-blue-900 px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-yellow-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -111,11 +110,11 @@ export default function HeroSection() {
             >
               Get Estimate
             </motion.a>
-            <motion.a 
+            <motion.a
               className="text-white border border-white px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-white hover:text-blue-600"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="#why"
+              href="#about"
             >
               Learn More
             </motion.a>
@@ -129,15 +128,15 @@ export default function HeroSection() {
           key={index}
           className="absolute text-red-400"
           initial={{ opacity: 0, scale: 0, x: `${index * 30 + 10}%`, y: "100%" }}
-          animate={{ 
+          animate={{
             opacity: [0, 1, 0],
             scale: [0, 1, 0],
-            y: ["100%", "50%", "0%"]
+            y: ["100%", "50%", "0%"],
           }}
           transition={{
             duration: 5,
             delay: index * 2,
-            repeat: Infinity,
+            repeat: Number.POSITIVE_INFINITY,
             repeatType: "loop",
             ease: "easeInOut",
           }}
@@ -155,7 +154,7 @@ export default function HeroSection() {
         }}
         transition={{
           duration: 10,
-          repeat: Infinity,
+          repeat: Number.POSITIVE_INFINITY,
           repeatType: "loop",
           ease: "linear",
         }}
@@ -165,11 +164,7 @@ export default function HeroSection() {
 
       {/* Decorative SVG */}
       <div className="absolute bottom-0 left-0 right-0">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 320"
-          className="w-full h-auto"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full h-auto">
           <path
             fill="#ffffff"
             fillOpacity="1"
@@ -178,5 +173,6 @@ export default function HeroSection() {
         </svg>
       </div>
     </section>
-  );
+  )
 }
+

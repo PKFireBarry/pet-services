@@ -38,7 +38,7 @@ export default function TermsOfServiceSection() {
                 Borkin Industries
               </h1>
               <h2 className="text-xl font-semibold mb-2 text-center">TERMS OF SERVICE</h2>
-              <p className="text-center mb-4">Updated: January 6, 2025</p>
+              <p className="text-center mb-4">Updated: Febuary 23, 2025</p>
               <hr className="border-gray-300 dark:border-gray-700" />
             </div>
 
@@ -147,6 +147,7 @@ export default function TermsOfServiceSection() {
                 <li>
                   <strong>Supply Necessary Items:</strong> Provide sufficient food, medications, leashes,
                   collars, litter, and any other items necessary for the care of your pet(s).
+                  If medications need to be administered, a doctor of veterinary medicine must have prescribed the medications with clear and concise instructions written in the medication.
                 </li>
                 <li>
                   <strong>Emergency Contact:</strong> Provide current contact information and at least one

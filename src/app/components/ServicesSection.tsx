@@ -83,11 +83,9 @@ export default function ServicesSection() {
   const [duration, setDuration] = useState(1)
   const [selectedServices, setSelectedServices] = useState<number[]>([])
 
-
   useEffect(() => {
     // Reset selected services when animal type or count changes
     setSelectedServices([])
-
   }, [animalType, animalCount])
 
   const isLargeAnimal = animalType === "Large"
@@ -99,8 +97,6 @@ export default function ServicesSection() {
         : [...prev, serviceId]
     )
   }
-
-
 
   const calculateTotal = () => {
     let total = 0
@@ -151,6 +147,39 @@ export default function ServicesSection() {
     })
   }
 
+  const steps = [
+    { number: 1, title: "Animal Type" },
+    { number: 2, title: "Number of Animals" },
+    { number: 3, title: "Duration" },
+    { number: 4, title: "Services" }
+  ];
+
+  const renderProgressSteps = () => (
+    <div className="flex items-center justify-center w-full mb-8">
+      <div className="flex relative w-full">
+        {/* Connecting Line Container */}
+
+
+        {/* Step Indicators */}
+        {steps.map((s) => (
+          <div
+            key={s.number}
+            className="flex flex-col items-center flex-1 relative z-10"
+          >
+            <div
+              className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm transition-colors duration-300 ${
+                step >= s.number ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-500'
+              }`}
+            >
+              {s.number}
+            </div>
+            <span className="text-xs sm:text-sm mt-2 text-center">{s.title}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   const renderServiceItem = (service: typeof services[0]) => {
     const IconComponent = service.icon
     const relevantOption = getRelevantOption(service)
@@ -160,44 +189,40 @@ export default function ServicesSection() {
     return (
       <motion.div
         key={service.id}
-        id='services'
-        className="mb-6 p-6 bg-white bg-opacity-80 backdrop-filter backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 relative overflow-hidden"
-        initial={{ opacity: 0, y: 50 }}
+        className="mb-4 p-4 bg-white bg-opacity-90 backdrop-blur-sm rounded-lg shadow hover:shadow-md transition-all duration-300 border border-purple-100"
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: service.id * 0.1 }}
+        transition={{ duration: 0.3 }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-200 to-pink-200 opacity-10 z-0"></div>
-        <div className="relative z-10">
-          <div className="flex items-center mb-2">
-            {IconComponent && <IconComponent className="w-8 h-8 mr-3 text-purple-600 animate-pulse" />}
-            <h3 className="text-lg font-semibold">{service.name}</h3>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-purple-100 rounded-lg">
+              {IconComponent && <IconComponent className="w-5 h-5 text-purple-600" />}
+            </div>
+            <div>
+              <h3 className="font-medium">{service.name}</h3>
+              <p className="text-sm text-gray-600">{service.description}</p>
+            </div>
           </div>
-          <p className="text-sm text-gray-600 mb-2">{service.description}</p>
           {relevantOption ? (
-            <div className="flex items-center justify-between mb-2">
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={selectedServices.includes(relevantOption.id)}
-                  onChange={() => toggleService(relevantOption.id)}
-                  className="mr-3 w-5 h-5 text-purple-600 rounded focus:ring-purple-500 transition-all duration-300"
-                />
-                {relevantOption.label}
-              </label>
+            <div className="flex items-center space-x-4">
               <span className="font-semibold">${relevantOption.price}</span>
+              <input
+                type="checkbox"
+                checked={selectedServices.includes(relevantOption.id)}
+                onChange={() => toggleService(relevantOption.id)}
+                className="w-5 h-5 text-purple-600 rounded focus:ring-purple-500"
+              />
             </div>
           ) : (
-            <div className="flex items-center justify-between">
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={selectedServices.includes(service.id)}
-                  onChange={() => toggleService(service.id)}
-                  className="mr-3 w-5 h-5 text-purple-600 rounded focus:ring-purple-500 transition-all duration-300"
-                />
-                {service.name}
-              </label>
+            <div className="flex items-center space-x-4">
               <span className="font-semibold">${service.price}</span>
+              <input
+                type="checkbox"
+                checked={selectedServices.includes(service.id)}
+                onChange={() => toggleService(service.id)}
+                className="w-5 h-5 text-purple-600 rounded focus:ring-purple-500"
+              />
             </div>
           )}
         </div>
@@ -211,8 +236,86 @@ export default function ServicesSection() {
     setAnimalCount(1)
     setDuration(1)
     setSelectedServices([])
-
   }
+
+  const renderEstimateCard = () => (
+    <div className="bg-white p-6 rounded-xl shadow-lg relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-pink-400 opacity-10"></div>
+      <div className="relative z-10">
+        {isLargeAnimal ? (
+          <div className="text-center">
+            <h4 className="text-lg font-semibold mb-2 text-purple-800">Contact Us for an Estimate</h4>
+            <p className="text-gray-700 mb-4">
+              Please contact us directly to get a personalized estimate for large animals.
+            </p>
+            <a
+              href="tel:1234567890"
+              className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
+            >
+              <Phone className="w-5 h-5 mr-2" />
+              Call Us
+            </a>
+          </div>
+        ) : (
+          <>
+            <div className="space-y-4 mb-6">
+              <div className="grid grid-cols-3 gap-4">
+                <div className="p-3 bg-purple-50 rounded-lg">
+                  <p className="text-sm text-gray-600">Animal Type</p>
+                  <p className="font-medium text-purple-800">{animalType || 'Not selected'}</p>
+                </div>
+                <div className="p-3 bg-purple-50 rounded-lg">
+                  <p className="text-sm text-gray-600">Animals</p>
+                  <p className="font-medium text-purple-800">{animalCount}</p>
+                </div>
+                <div className="p-3 bg-purple-50 rounded-lg">
+                  <p className="text-sm text-gray-600">Days</p>
+                  <p className="font-medium text-purple-800">{duration}</p>
+                </div>
+              </div>
+            </div>
+            {selectedServices.length > 0 ? (
+              <div className="space-y-2">
+                {selectedServices.map(serviceId => {
+                  const service = services.find(s => s.id === Math.floor(serviceId));
+                  if (!service) return null;
+                  
+                  let label, price;
+                  if (service.options) {
+                    const option = service.options.find(o => o.id === serviceId);
+                    if (!option) return null;
+                    label = `${service.name} - ${option.label}`;
+                    price = option.price * duration;
+                  } else {
+                    label = service.name;
+                    const count = service.id === 4 ? animalCount * duration : 1;
+                    price = service.price * count;
+                  }
+                  
+                  return (
+                    <div key={serviceId} className="flex justify-between items-center py-2">
+                      <span className="text-gray-700">{label}</span>
+                      <span className="font-medium">${price.toFixed(2)}</span>
+                    </div>
+                  );
+                })}
+                <div className="border-t-2 border-purple-100 pt-4 mt-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-lg font-semibold text-purple-800">Total Estimate</span>
+                    <span className="text-2xl font-bold text-purple-600">${calculateTotal().toFixed(2)}</span>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <p className="text-center text-gray-500 py-4">
+                Select services to see your estimate
+              </p>
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  );
 
   const renderStep = () => {
     switch (step) {
@@ -220,52 +323,59 @@ export default function ServicesSection() {
         return (
           <motion.div
             className="space-y-4"
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.3 }}
           >
-            <h3 className="text-2xl font-semibold mb-6 text-purple-800">What type of animal do you have?</h3>
-            <select
-              value={animalType}
-              onChange={(e) => setAnimalType(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
-            >
-              <option value="">Select animal type</option>
-              <option value="Dog">Dog</option>
-              <option value="Large">Large Animal</option>
-              <option value="Small">Small Animal</option>
-            </select>
-            <button
-              onClick={() => setStep(2)}
-              disabled={!animalType}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Next
-            </button>
+            <div className="bg-white p-6 rounded-xl shadow-md">
+              <h3 className="text-xl font-semibold mb-4 text-purple-800">What type of animal do you have?</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {['Dog', 'Large', 'Small'].map((type) => (
+                  <button
+                    key={type}
+                    onClick={() => {
+                      setAnimalType(type);
+                      setStep(2);
+                    }}
+                    className={`p-4 rounded-lg border-2 transition-all duration-300 ${
+                      animalType === type
+                        ? 'border-purple-600 bg-purple-50'
+                        : 'border-gray-200 hover:border-purple-300'
+                    }`}
+                  >
+                    <span className="block text-lg font-medium">{type}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
           </motion.div>
         )
       case 2:
         return (
           <motion.div
             className="space-y-4"
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.3 }}
           >
-            <h3 className="text-2xl font-semibold mb-6 text-purple-800">How many animals?</h3>
-            <input
-              type="number"
-              min="1"
-              value={animalCount}
-              onChange={(e) => setAnimalCount(Math.max(1, parseInt(e.target.value)))}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
-            />
-            <button
-              onClick={() => setStep(3)}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
-            >
-              Next
-            </button>
+            <div className="bg-white p-6 rounded-xl shadow-md">
+              <h3 className="text-xl font-semibold mb-4 text-purple-800">How many animals?</h3>
+              <input
+                type="number"
+                min="1"
+                value={animalCount}
+                onChange={(e) => setAnimalCount(Math.max(1, parseInt(e.target.value)))}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+              />
+              <div className="flex justify-end mt-4">
+                <button
+                  onClick={() => setStep(3)}
+                  className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
           </motion.div>
         )
       case 3:
@@ -273,52 +383,51 @@ export default function ServicesSection() {
           return (
             <motion.div
               className="space-y-4 text-center"
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.3 }}
             >
-              <h3 className="text-2xl font-semibold mb-6 text-purple-800">Contact Us for an Estimate</h3>
-              <p className="text-gray-700 mb-6">
-                For large animals, please contact us directly to get a personalized estimate.
-              </p>
-              <a
-                href="tel:1234567890"
-                className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
-              >
-                <Phone className="w-5 h-5 mr-2" />
-                Call Us
-              </a>
-              <button
-                onClick={resetForm}
-                className="mt-6 px-4 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300 transition-colors duration-300 flex items-center justify-center mx-auto"
-              >
-                <RefreshCw className="w-4 h-4 mr-2" />
-                Start Over
-              </button>
+              <div className="bg-white p-6 rounded-xl shadow-md">
+                <h3 className="text-xl font-semibold mb-4 text-purple-800">Contact Us for an Estimate</h3>
+                <p className="text-gray-700 mb-4">
+                  For large animals, please contact us directly to get a personalized estimate.
+                </p>
+                <a
+                  href="tel:1234567890"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
+                >
+                  <Phone className="w-5 h-5 mr-2" />
+                  Call Us
+                </a>
+              </div>
             </motion.div>
           )
         } else {
           return (
             <motion.div
               className="space-y-4"
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.3 }}
             >
-              <h3 className="text-2xl font-semibold mb-6 text-purple-800">How many days do you need service?</h3>
-              <input
-                type="number"
-                min="1"
-                value={duration}
-                onChange={(e) => setDuration(Math.max(1, parseInt(e.target.value)))}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
-              />
-              <button
-                onClick={() => setStep(4)}
-                className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
-              >
-                Next
-              </button>
+              <div className="bg-white p-6 rounded-xl shadow-md">
+                <h3 className="text-xl font-semibold mb-4 text-purple-800">How many days do you need service?</h3>
+                <input
+                  type="number"
+                  min="1"
+                  value={duration}
+                  onChange={(e) => setDuration(Math.max(1, parseInt(e.target.value)))}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                />
+                <div className="flex justify-end mt-4">
+                  <button
+                    onClick={() => setStep(4)}
+                    className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
             </motion.div>
           )
         }
@@ -327,18 +436,20 @@ export default function ServicesSection() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.3 }}
           >
-            <h3 className="text-2xl font-semibold mb-6 text-purple-800">Select Your Services</h3>
-            {Object.entries(filteredServices.reduce((acc, service) => {
-              acc[service.category] = [...(acc[service.category] || []), service]
-              return acc
-            }, {} as Record<string, typeof services>)).map(([category, categoryServices]) => (
-              <div key={category} className="mb-6">
-                <h4 className="text-lg font-semibold mb-2">{category}</h4>
-                {categoryServices.map(renderServiceItem)}
-              </div>
-            ))}
+            <div className="bg-white p-6 rounded-xl shadow-md">
+              <h3 className="text-xl font-semibold mb-6 text-purple-800">Select Your Services</h3>
+              {Object.entries(filteredServices.reduce((acc, service) => {
+                acc[service.category] = [...(acc[service.category] || []), service]
+                return acc
+              }, {} as Record<string, typeof services>)).map(([category, categoryServices]) => (
+                <div key={category} className="mb-6">
+                  <h4 className="text-lg font-semibold mb-2">{category}</h4>
+                  {categoryServices.map(renderServiceItem)}
+                </div>
+              ))}
+            </div>
           </motion.div>
         )
       default:
@@ -347,121 +458,43 @@ export default function ServicesSection() {
   }
 
   return (
-    <section className="w-full  py-16 bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100">
-      <div className="container mt-56 mx-auto px-4 max-w-5xl">
-        <motion.h2
-          className="text-4xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          Pricing Estimate Calculator
-        </motion.h2>
-        <div className="grid gap-12 lg:grid-cols-2">
-          <div>
-            {renderStep()}
-            {!isLargeAnimal && step > 1 && (
-              <motion.button
-                onClick={resetForm}
-                className="mt-6 px-4 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300 transition-colors duration-300 flex items-center justify-center"
-                whileHover={{ scale: 1.05 }}
-              >
-                <RefreshCw className="w-4 h-4 mr-2" />
-                Start Over
-              </motion.button>
-            )}
-          </div>
-          <motion.div
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h3 className="text-xl font-semibold mb-4">Your Estimate</h3>
-            <div className="bg-white p-6 rounded-xl shadow-lg relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-pink-400 opacity-20"></div>
-              <div className="relative z-10">
-                {isLargeAnimal ? (
-                  <div className="text-center">
-                    <h4 className="text-lg font-semibold mb-2 text-purple-800">Contact Us for an Estimate</h4>
-                    <p className="text-gray-700">
-                      Please contact us directly to get a personalized estimate for large animals.
-                    </p>
-                    <a
-                      href="tel:1234567890"
-                      className="inline-flex items-center justify-center mt-6 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300"
-                    >
-                      <Phone className="w-5 h-5 mr-2" />
-                      Call Us
-                    </a>
-                  </div>
-                ) : (
-                  <>
-                    <div className="mb-6">
-                      <h4 className="text-lg font-semibold mb-2 text-purple-800">Service Details</h4>
-                      <p>
-                        <strong className="text-gray-700">Animal Type:</strong>{' '}
-                        <span className="text-purple-600">{animalType || 'Not selected'}</span>
-                      </p>
-                      <p>
-                        <strong className="text-gray-700">Number of Animals:</strong>{' '}
-                        <span className="text-purple-600">{animalCount}</span>
-                      </p>
-                      <p>
-                        <strong className="text-gray-700">Duration:</strong>{' '}
-                        <span className="text-purple-600">{duration} day(s)</span>
-                      </p>
-                    </div>
-                    {selectedServices.map(serviceId => {
-                      const service = services.find(s => s.id === Math.floor(serviceId))
-                      if (service) {
-                        if (service.options) {
-                          const option = service.options.find(o => o.id === serviceId)
-                          if (option) {
-                            return (
-                              <div key={serviceId} className="flex justify-between mb-2">
-                                <span>{service.name} - {option.label}</span>
-                                <span>${(option.price * duration).toFixed(2)}</span>
-                              </div>
-                            )
-                          }
-                        } else {
-                          let count = 1
-                          if (service.id === 4) {
-                            // Medication Administration is per animal per night
-                            count = animalCount * duration
-                          }
-                          return (
-                            <div key={serviceId} className="flex justify-between mb-2">
-                              <span>{service.name}</span>
-                              <span>${(service.price * count).toFixed(2)}</span>
-                            </div>
-                          )
-                        }
-                      }
-                      return null
-                    })}
-                    <div className="border-t-2 border-purple-200 pt-4 mt-4">
-                      <div className="flex justify-between font-bold text-lg">
-                        <span className="text-purple-800">Total Estimate</span>
-                        <span className="text-purple-600">${calculateTotal().toFixed(2)}</span>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-            {!isLargeAnimal && (
-              <motion.button
-                className="w-full mt-6 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={selectedServices.length === 0 || step < 4}
-                whileHover={{ scale: 1.02 }}
-              >
-                Book Now
-              </motion.button>
-            )}
-          </motion.div>
+    <div className="mx-auto px-4 py-8 bg-white">
+      <motion.h1
+        className="text-3xl md:text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        Pet Service Cost Calculator
+      </motion.h1>
+      {renderProgressSteps()}
+      <div className="grid md:grid-cols-2 gap-8">
+        <div>
+          {renderStep()}
+          {step > 1 && (
+            <motion.button
+              onClick={resetForm}
+              className="mt-4 px-4 py-2 text-gray-600 rounded-full hover:bg-gray-100 transition-colors duration-300 flex items-center justify-center"
+              whileHover={{ scale: 1.02 }}
+            >
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Start Over
+            </motion.button>
+          )}
+        </div>
+        <div className="md:sticky md:top-8 h-fit">
+          {renderEstimateCard()}
+          {!isLargeAnimal && selectedServices.length > 0 && (
+            <motion.button
+              className="w-full mt-4 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-md hover:from-purple-700 hover:to-pink-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={selectedServices.length === 0 || step < 4}
+              whileHover={{ scale: 1.02 }}
+            >
+              Book Now
+            </motion.button>
+          )}
         </div>
       </div>
-    </section>
+    </div>
   )
 }

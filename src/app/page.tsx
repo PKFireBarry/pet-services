@@ -51,13 +51,15 @@ export default function PetServicesLanding() {
               </div>
             </AnimatedSection>
 
+            <div id="about">
+              <About />
+            </div>
+
             <div id="why">
               <WhyChooseUs />
             </div>
 
-            <div id="about">
-              <About />
-            </div>
+
 
             <AnimatedSection>
               <div id="services">
